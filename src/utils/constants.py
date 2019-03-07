@@ -8,8 +8,6 @@ UNIVARIATE_DATASET_NAMES = ['50words','Adiac','ArrowHead','Beef','BeetleFly','Bi
 'synthetic_control','ToeSegmentation1','ToeSegmentation2','Trace','TwoLeadECG','Two_Patterns','UWaveGestureLibraryAll','uWaveGestureLibrary_X','uWaveGestureLibrary_Y',
 'uWaveGestureLibrary_Z','wafer','Wine','WordsSynonyms','Worms','WormsTwoClass','yoga']
 
-UNIVARIATE_DATASET_NAMES = ['Adiac']
-
 ITERATIONS = 1 # nb of random runs for random initializations
 
 UNIVARIATE_ARCHIVE_NAMES = ['TSC']
