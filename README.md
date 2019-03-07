@@ -19,6 +19,8 @@ python3 main.py
 ```
 To control which datasets and which individual/ensemble classifiers to run see the options in [constants.py](https://github.com/hfawaz/ijcnn19ensemble/blob/master/src/utils/constants.py).  
 
+You can control which algorithms to include in the ensemble by changing [this line of code](https://github.com/hfawaz/ijcnn19ensemble/blob/cb822a0783ea6bd10359348f727b8fd81ae2c131/src/classifiers/nne.py#L35). 
+
 ## Prerequisites
 All python packages needed are listed in [pip-requirements.txt](https://github.com/hfawaz/ijcnn19ensemble/blob/master/src/utils/pip-requirements.txt) file and can be installed simply using the pip command.
 
