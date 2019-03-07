@@ -36,6 +36,7 @@ All python packages needed are listed in [pip-requirements.txt](https://github.c
 
 ## Results
 The following table shows the results of four ensembles, the raw results can be found [here](https://github.com/hfawaz/ijcnn19ensemble/blob/master/results/results.csv). 
+
 |                                | Fine-tuned FCNs | NNE    | ALL    | ResNets | 
 |--------------------------------|-----------------|--------|--------|---------| 
 | 50words                        | 66.81           | 80.00  | 80.00  | 77.14   | 
@@ -123,6 +124,7 @@ The following table shows the results of four ensembles, the raw results can be 
 | uWaveGestureLibrary_Z          | 73.12           | 78.03  | 77.41  | 76.19   | 
 | wafer                          | 99.61           | 99.84  | 99.81  | 99.90   | 
 | yoga                           | 87.10           | 89.33  | 88.57  | 88.17   | 
+
 
 ## Critical difference diagrams
 ![cd-diagram-resnets](https://github.com/hfawaz/ijcnn19ensemble/blob/master/png/cd-diagram-resnets.png)
