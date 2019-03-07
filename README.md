@@ -18,3 +18,18 @@ To run a model on all datasets you should issue the following command:
 python3 main.py
 ```
 To control which datasets and which individual/ensemble classifiers to run see the options in [constants.py](https://github.com/hfawaz/ijcnn19ensemble/blob/master/src/utils/constants.py).  
+
+## Prerequisites
+All python packages needed are listed in [pip-requirements.txt](https://github.com/hfawaz/dl-4-tsc/blob/master/utils/pip-requirements.txt) file and can be installed simply using the pip command.
+
+* [numpy](http://www.numpy.org/)  
+* [pandas](https://pandas.pydata.org/)  
+* [sklearn](http://scikit-learn.org/stable/)  
+* [scipy](https://www.scipy.org/)  
+* [matplotlib](https://matplotlib.org/)  
+* [tensorflow-gpu](https://www.tensorflow.org/)  
+* [keras](https://keras.io/)  
+* [h5py](http://docs.h5py.org/en/latest/build.html)
+* [keras_contrib](https://www.github.com/keras-team/keras-contrib.git)
+
+## Results
