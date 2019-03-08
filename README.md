@@ -124,6 +124,7 @@ The following table shows the results of four ensembles, the raw results can be 
 | uWaveGestureLibrary_Z          | 73.12           | **78.03**  | 77.41  | 76.19   | 
 | wafer                          | 99.61           | 99.84  | 99.81  | **99.90**   | 
 | yoga                           | 87.10           | **89.33**  | 88.57  | 88.17   | 
+| **Wins**                           | 18           | **38**  | 29 | 27 | 
 
 
 ## Critical difference diagrams
