@@ -1,5 +1,5 @@
 # Deep Neural Network Ensembles for Time Series Classification
-This is the companion repository for our paper also available on ArXiv titled "Deep Neural Network Ensembles for Time Series Classification". This paper has been accepted at the [IEEE International Joint Conference on Neural Networks (IJCNN) 2019](https://www.ijcnn.org/). 
+This is the companion repository for our paper also available on [ArXiv](https://arxiv.org/abs/1903.06602) titled "Deep Neural Network Ensembles for Time Series Classification". This paper has been accepted at the [IEEE International Joint Conference on Neural Networks (IJCNN) 2019](https://www.ijcnn.org/). 
 
 ## Approach
 ![ensemble](https://github.com/hfawaz/ijcnn19ensemble/blob/master/png/ensemble.png)
