@@ -144,3 +144,7 @@ If you re-use this work, please cite:
   Year                     = {2019}
 }
 ```
+
+## Acknowledgement
+
+We would like to thank NVIDIA Corporation for the Quadro P6000 grant and the Mésocentre of Strasbourg for providing access to the cluster.
