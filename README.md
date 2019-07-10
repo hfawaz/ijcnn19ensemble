@@ -128,9 +128,12 @@ The following table shows the results of four ensembles, the raw results can be 
 
 
 ## Critical difference diagrams
+If you would like to generate these diagrams, take a look at [this code](https://github.com/hfawaz/cd-diagram)!
+
 ![cd-diagram-resnets](https://github.com/hfawaz/ijcnn19ensemble/blob/master/png/cd-diagram-resnets.png)
 ![cd-diagram-all](https://github.com/hfawaz/ijcnn19ensemble/blob/master/png/cd-diagram-all.png)
 ![cd-diagram-nne](https://github.com/hfawaz/ijcnn19ensemble/blob/master/png/cd-diagram-nne.png)
+ 
 
 ## Reference
 
