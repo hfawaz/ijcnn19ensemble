@@ -1,8 +1,11 @@
-import keras
+# FCN model
+# when tuning start with learning rate->mini_batch_size ->
+# momentum-> #hidden_units -> # learning_rate_decay -> #layers
+import tensorflow as tf
 import numpy as np
-from sklearn.model_selection import train_test_split
 import time
-
+from tensorflow import keras
+from sklearn.model_selection import train_test_split
 from utils.utils import save_logs
 from utils.utils import calculate_metrics
 
@@ -79,7 +82,7 @@ class Classifier_MCDCNN:
         return  new_x
 
     def fit(self, x, y, x_test, y_test, y_true):
-        if len(keras.backend.tensorflow_backend._get_available_gpus())==0:
+        if len( tf.config.list_physical_devices('GPU'))==0:
             print('error')
             exit()
         mini_batch_size = 16

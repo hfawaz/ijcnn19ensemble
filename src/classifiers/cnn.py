@@ -1,4 +1,5 @@
-import keras
+import tensorflow as tf
+from tensorflow import keras
 import numpy as np
 import time
 
@@ -51,7 +52,7 @@ class Classifier_CNN:
         return model
 
     def fit(self, x_train, y_train, x_val, y_val, y_true):
-        if len(keras.backend.tensorflow_backend._get_available_gpus())==0:
+        if len( tf.config.list_physical_devices('GPU'))==0:
             print('error')
             exit()
 
