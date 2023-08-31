@@ -24,7 +24,7 @@ from sklearn.model_selection import train_test_split
 def check_if_file_exits(file_name):
     return os.path.exists(file_name)
 
-def readucr(filename,delimiter=','):
+def readucr(filename,delimiter='\t'):
     data = np.loadtxt(filename, delimiter = delimiter)
     Y = data[:,0]
     X = data[:,1:]
@@ -58,8 +58,8 @@ def read_all_datasets(root_dir,archive_name, split_val = False):
     for dataset_name in DATASET_NAMES:
         root_dir_dataset =root_dir+'/archives/'+archive_name+'/'+dataset_name+'/'
         file_name = root_dir_dataset+dataset_name
-        x_train, y_train = readucr(file_name+'_TRAIN')
-        x_test, y_test = readucr(file_name+'_TEST')
+        x_train, y_train = readucr(file_name+'_TRAIN.tsv')
+        x_test, y_test = readucr(file_name+'_TEST.tsv')
 
         if split_val == True:
             # check if dataset has already been splitted
@@ -108,7 +108,7 @@ def read_all_datasets(root_dir,archive_name, split_val = False):
     return datasets_dict
 
 def calculate_metrics(y_true, y_pred,duration,y_true_val=None,y_pred_val=None): 
-    res = pd.DataFrame(data = np.zeros((1,4),dtype=np.float), index=[0], 
+    res = pd.DataFrame(data = np.zeros((1,4),dtype=float), index=[0], 
         columns=['precision','accuracy','recall','duration'])
     res['precision'] = precision_score(y_true,y_pred,average='macro')
     res['accuracy'] = accuracy_score(y_true,y_pred)
@@ -120,6 +120,12 @@ def calculate_metrics(y_true, y_pred,duration,y_true_val=None,y_pred_val=None):
     res['recall'] = recall_score(y_true,y_pred,average='macro')
     res['duration'] = duration
     return res
+
+def save_test_duration(file_name, test_duration):
+    res = pd.DataFrame(data=np.zeros((1, 1), dtype=float), index=[0],
+                       columns=['test_duration'])
+    res['test_duration'] = test_duration
+    res.to_csv(file_name, index=False)
 
 def transform_labels(y_train,y_test,y_val=None):
     """
@@ -158,16 +164,36 @@ def transform_labels(y_train,y_test,y_val=None):
         new_y_test = new_y_train_test[len(y_train):]
         return new_y_train, new_y_test
 
-def plot_epochs_metric(hist, file_name, metric='loss'):
-    plt.figure()
-    plt.plot(hist.history[metric])
-    plt.plot(hist.history['val_'+metric])
-    plt.title('model '+metric)
-    plt.ylabel(metric,fontsize='large')
-    plt.xlabel('epoch',fontsize='large')
-    plt.legend(['train', 'val'], loc='upper left')
-    plt.savefig(file_name,bbox_inches='tight')
-    plt.close()
+def plot_epochs_metric(hist, file_name, metric=None):
+    if metric is None:
+        plt.figure()
+        plt.plot(hist.history['loss'])
+        plt.plot(hist.history['val_loss'])
+        plt.title('model loss')
+        plt.ylabel('loss',fontsize='large')
+        plt.xlabel('epoch',fontsize='large')
+        plt.legend(['train', 'val'], loc='upper left')
+        plt.savefig(file_name+'epochs_loss.png',bbox_inches='tight')
+        plt.close()
+        plt.figure()
+        plt.plot(hist.history['accuracy'])
+        plt.plot(hist.history['val_accuracy'])
+        plt.title('model accuracy')
+        plt.ylabel('accuracy',fontsize='large')
+        plt.xlabel('epoch',fontsize='large')
+        plt.legend(['train', 'val'], loc='upper left')
+        plt.savefig(file_name+'epochs_accuracy.png',bbox_inches='tight')
+        plt.close()
+    else:
+        plt.figure()
+        plt.plot(hist.history[metric])
+        plt.plot(hist.history['val_'+metric])
+        plt.title('model '+metric)
+        plt.ylabel(metric,fontsize='large')
+        plt.xlabel('epoch',fontsize='large')
+        plt.legend(['train', 'val'], loc='upper left')
+        plt.savefig(file_name+'epochs_loss.png',bbox_inches='tight')
+        plt.close()
 
 def save_logs(output_directory, hist, y_pred, y_true,duration,lr=True,y_true_val=None,y_pred_val=None):
     hist_df = pd.DataFrame(hist.history)
@@ -179,14 +205,14 @@ def save_logs(output_directory, hist, y_pred, y_true,duration,lr=True,y_true_val
     index_best_model = hist_df['loss'].idxmin() 
     row_best_model = hist_df.loc[index_best_model]
 
-    df_best_model = pd.DataFrame(data = np.zeros((1,6),dtype=np.float) , index = [0], 
+    df_best_model = pd.DataFrame(data = np.zeros((1,6),dtype=float) , index = [0], 
         columns=['best_model_train_loss', 'best_model_val_loss', 'best_model_train_acc', 
         'best_model_val_acc', 'best_model_learning_rate','best_model_nb_epoch'])
     
     df_best_model['best_model_train_loss'] = row_best_model['loss']
     df_best_model['best_model_val_loss'] = row_best_model['val_loss']
-    df_best_model['best_model_train_acc'] = row_best_model['acc']
-    df_best_model['best_model_val_acc'] = row_best_model['val_acc']
+    df_best_model['best_model_train_acc'] = row_best_model['accuracy']
+    df_best_model['best_model_val_acc'] = row_best_model['val_accuracy']
     if lr == True:
         df_best_model['best_model_learning_rate'] = row_best_model['lr']
     df_best_model['best_model_nb_epoch'] = index_best_model
@@ -196,6 +222,6 @@ def save_logs(output_directory, hist, y_pred, y_true,duration,lr=True,y_true_val
     # for FCN there is no hyperparameters fine tuning - everything is static in code 
 
     # plot losses 
-    plot_epochs_metric(hist, output_directory+'epochs_loss.png')
+    plot_epochs_metric(hist, output_directory)
 
     return df_metrics

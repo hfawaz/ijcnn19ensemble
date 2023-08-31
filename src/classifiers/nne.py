@@ -1,11 +1,13 @@
-import keras
+import tensorflow as tf
 import numpy as np
+import gc
+import time
+
+from tensorflow import keras
 from utils.utils import calculate_metrics
 from utils.utils import create_directory
 from utils.utils import check_if_file_exits
-import gc
 from utils.constants import UNIVARIATE_ARCHIVE_NAMES  as ARCHIVE_NAMES
-import time
 
 class Classifier_NNE:
 
@@ -32,8 +34,10 @@ class Classifier_NNE:
             return cnn.Classifier_CNN(output_directory, input_shape, nb_classes, verbose, build=build)
 
     def __init__(self, output_directory, input_shape, nb_classes, verbose=False):
-        self.classifiers = ['mlp','fcn','resnet','encoder','mcdcnn','cnn']
-        self.classifiers = ['fcn','resnet','encoder'] # this represents NNE in the paper
+        # self.classifiers = ['mlp','fcn','resnet','encoder','mcdcnn','cnn']
+        # self.classifiers = ['fcn','resnet','encoder'] # this represents NNE in the paper
+        self.classifiers = ['fcn','resnet','inception']
+        # self.classifiers = ['fcn','resnet','encoder','inception']
         out_add = ''
         for cc in self.classifiers:
             out_add = out_add + cc + '-'

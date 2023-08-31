@@ -1,8 +1,13 @@
 # MLP model 
-import keras 
+import tensorflow as tf
 import numpy as np
 import time
 
+import matplotlib 
+matplotlib.use('agg')
+import matplotlib.pyplot as plt 
+
+from tensorflow import keras
 from utils.utils import save_logs
 from utils.utils import calculate_metrics
 
@@ -53,7 +58,7 @@ class Classifier_MLP:
 		return model
 
 	def fit(self, x_train, y_train, x_val, y_val,y_true):
-		if len(keras.backend.tensorflow_backend._get_available_gpus())==0:
+		if len( tf.config.list_physical_devices('GPU'))==0:
 			print('error')
 			exit()
 		# x_val and y_val are only used to monitor the test loss and NOT for training  

@@ -1,4 +1,4 @@
-import keras
+from tensorflow import keras
 import numpy as np
 from utils.utils import calculate_metrics
 from utils.constants import UNIVARIATE_DATASET_NAMES as datasets_names

@@ -1,5 +1,7 @@
-import keras
-import keras_contrib
+# Our proposed model CNN + LSTM
+import tensorflow as tf
+from tensorflow import keras
+import tensorflow_addons as tfa
 import numpy as np
 import time
 
@@ -16,26 +18,25 @@ class Classifier_ENCODER:
                 self.model.summary()
             self.verbose = verbose
             self.model.save_weights(self.output_directory + 'model_init.hdf5')
-        return
 
     def build_model(self, input_shape, nb_classes):
         input_layer = keras.layers.Input(input_shape)
 
         # conv block -1
         conv1 = keras.layers.Conv1D(filters=128,kernel_size=5,strides=1,padding='same')(input_layer)
-        conv1 = keras_contrib.layers.InstanceNormalization()(conv1)
+        conv1 = tfa.layers.InstanceNormalization()(conv1)
         conv1 = keras.layers.PReLU(shared_axes=[1])(conv1)
         conv1 = keras.layers.Dropout(rate=0.2)(conv1)
         conv1 = keras.layers.MaxPooling1D(pool_size=2)(conv1)
         # conv block -2
         conv2 = keras.layers.Conv1D(filters=256,kernel_size=11,strides=1,padding='same')(conv1)
-        conv2 = keras_contrib.layers.InstanceNormalization()(conv2)
+        conv2 = tfa.layers.InstanceNormalization()(conv2)
         conv2 = keras.layers.PReLU(shared_axes=[1])(conv2)
         conv2 = keras.layers.Dropout(rate=0.2)(conv2)
         conv2 = keras.layers.MaxPooling1D(pool_size=2)(conv2)
         # conv block -3
         conv3 = keras.layers.Conv1D(filters=512,kernel_size=21,strides=1,padding='same')(conv2)
-        conv3 = keras_contrib.layers.InstanceNormalization()(conv3)
+        conv3 = tfa.layers.InstanceNormalization()(conv3)
         conv3 = keras.layers.PReLU(shared_axes=[1])(conv3)
         conv3 = keras.layers.Dropout(rate=0.2)(conv3)
         # split for attention
@@ -46,7 +47,7 @@ class Classifier_ENCODER:
         multiply_layer = keras.layers.Multiply()([attention_softmax,attention_data])
         # last layer
         dense_layer = keras.layers.Dense(units=256,activation='sigmoid')(multiply_layer)
-        dense_layer = keras_contrib.layers.InstanceNormalization()(dense_layer)
+        dense_layer = tfa.layers.InstanceNormalization()(dense_layer)
         # output layer
         flatten_layer = keras.layers.Flatten()(dense_layer)
         output_layer = keras.layers.Dense(units=nb_classes,activation='softmax')(flatten_layer)
@@ -66,7 +67,7 @@ class Classifier_ENCODER:
         return model
 
     def fit(self, x_train, y_train, x_val, y_val, y_true):
-        if len(keras.backend.tensorflow_backend._get_available_gpus())==0:
+        if len( tf.config.list_physical_devices('GPU'))==0:
             print('error')
             exit()
         # x_val and y_val are only used to monitor the test loss and NOT for training
